@@ -1,0 +1,227 @@
+* {
+    margin: 0;
+    padding: 0;
+    /*esta propriedade mantém o tamanho original da caixa, intependente de paddings internos
+        ex: temos uma caixa com largura de 360px com padding de 100px, se quisermos manter os 360 pixeis originais
+        podemos utilizar esta propriedade
+    */
+    box-sizing: border-box;
+}
+
+:root {
+    /*Definindo uma variável no css
+        Para utilizar, basta executar o comando var() dentro de uma propriedade do css*/
+    --text-color: #fff;
+    --bg-url: url(./assets/bg-mobile.jpg);
+    --stroke-color: rgba(255, 255, 255, 0.5);
+    --surface-color: rgba(255, 255, 255, 0.1);
+    --surface-color-hover: rgba(255, 255, 255, 0.05);
+    --highlight-color: rgba(255, 255, 255, 0.1);
+    --switch-bg: url(./assets/moon-stars.svg);
+}
+
+.light {
+    --text-color: #000;
+    --bg-url: url(./assets/bg-mobile-light.jpg);
+    --stroke-color: rgba(0, 0, 0, 0.5);
+    --surface-color: rgba(0, 0, 0, 0.1);
+    --surface-color-hover: rgba(0, 0, 0, 0.05);
+    --highlight-color: rgba(0, 0, 0, 0.1);
+    --switch-bg: url(./assets/sun.svg);
+}
+
+body {
+        /*adiciona uma imagem através de uma url/caminho
+    background-image: url("./assets/bg-mobile.jpg");
+        faz com que a imagem de fundo não se repita
+    background-repeat: no-repeat;
+        faz com que a imagem de fundo se centralize começando do topo da página e ao mesmo tempo no centro
+    background-position: top center;
+        faz com que a imagem de fundo consiga cobrir toda a página
+    background-size: cover;*/
+
+    /*transformou todas as propriedades acima em apenas uma*/
+    background: var(--bg-url) no-repeat top center/cover;
+}
+
+body * {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-color);
+}
+
+/*Cabeçalho de perfil*/
+
+#container {
+    width: 360px;
+    /*margin-top: 56px;
+    margin-bottom: 32px;*/
+    
+    /*o margin e o padding funcionam como um relógio, então para que possamos colocar tudo em apenas uma propriedade
+    podemos utilizar este comando, que seguirá a seguinte ordem de aplicação: top, right, bottom e left*/
+    margin: 56px auto auto auto;
+    padding: 0px 24px;
+}
+
+/*Profile*/
+
+/*define que a tag "pai" tenha todos os elementos dentro dela alinhados ao centro*/
+#profile {
+    /*o text-align funciona apenas com elementos com display inline
+        obs: todos os elementos html por padrão possuem um dos displays (inline, block), porém é possível alterar no css
+    */
+    text-align: center;
+    padding: 24px;
+}
+/*O "display" faz com que a orientação das tags mude
+    inline: todos os componentes com esse atributo ficarão
+    disponibilizados em uma linha
+
+    block: todos os componentes com esse atributo ocuparão a largura máxima disponível
+    e ficarão um abaixo do outro
+*/
+#profile>img {
+    width: 112px;
+    border-radius: 50%;
+}
+
+#profile p {
+    padding-top: 8px;
+    font-weight: 500;
+    line-height: 24px;
+}
+
+/*Switch*/
+#switch {
+    /*essa propriedade faz com que o elemento se posicione apenas dentro da "caixa" onde ele está inserido, neste caso, do "switch"
+        neste caso, o "absolute" utilizado no button vai ser relativo ao tamanho da caixa onde ele está*/
+    position: relative;
+    width: 64px;
+
+    margin: 4px auto;
+}
+
+#switch button {
+    width: 32px;
+    height: 32px;
+    background: #fff var(--switch-bg) no-repeat center;
+    border: 0;
+    border-radius: 50%;
+
+    /*Sobreposição*/
+    /*Ao utilizar essa propriedade, ela faz automaticamente uma sobreposição de camadas do elemento
+        O absolute também libera algumas outras propriedades de alinhamento*/
+    position: absolute;
+    top: 50%;
+    left: 0;
+    /*coloca o elemento na camada 1 (as camadas sempre iniciam em 0)*/
+    z-index: 1;
+    /*esta propriedade faz a movimentação do elemento*/
+    transform: translateY(-50%);
+}
+
+.light #switch button {
+    right: 0;
+    left: initial;
+}
+
+#switch span {
+    /*Por padrão, o span tem um display inline, o que faz com que ele não aceite algumas propriedades, como altura e largura*/
+    display: block;
+    width: 64px;
+    height: 24px;
+
+    background: var(--surface-color);
+    border: 1px solid var(--stroke-color);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: 9999px;
+}
+
+/*Links*/
+
+ul {
+    padding: 24px 0;
+    /*esta propriedade serve para alterar os estilos da lista*/
+    list-style: none;
+    /*o display flex trabalha dentro de cada caixa, fazendo com que os elementos fiquem ao lado do outro de maneira flexivel
+        ex: temos uma lista com 4 itens um abaixo do outro. Se colocarmos o display:flex, cada elemento ficará um AO LADO do outro
+
+        por padrão o flex-direction é em "row"
+    */
+    display: flex;
+    flex-direction: column;
+
+    /*o "gap" coloca um espaço APENAS entre os elementos da caixa, não aplicando em cima ou dos lados caso não haja elementos
+    nessas direções*/
+    gap: 16px;
+}
+
+ul li a {
+    display: flex;
+    /*o justify-content funciona apenas quando o display é flex, permitindo o conteúdo se ajustar dentro da caixa 
+        neste caso também poderíamos utilizar a solução de:
+        display: block;
+        text-align: center;
+
+        o justify-content alinha horizontalmente os elementos no centro da caixa, já o align-items alinha verticalmente
+    */
+    justify-content: center;
+    align-items: center;
+
+    padding: 16px 24px;
+
+    /*o rgba funciona com as cores r=red, g=green, b=blue e a=alpha (transparência da cor)*/
+    background: var(--surface-color);
+    border: 1px solid var(--stroke-color);
+
+    border-radius: 8px;
+
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    /*esta propriedade permite alterar a decoração do texto da tag a*/
+    text-decoration: none;
+    font-weight: 500;
+
+    /*adiciona uma transição/animação ao elemento escolhido*/
+    transition: background .2s;
+}
+
+/*pseudo-selector*/
+ul li a:hover {
+    background: var(--surface-color-hover);
+    border: 1.5px solid var(--text-color);
+}
+
+/*Social media*/
+
+#social-media {
+    padding: 24px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+#social-media a {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    
+    transition: background .2s;
+}
+
+#social-media a:hover {
+    background: var(--highlight-color);
+}
+
+/*Footer*/
+
+footer {
+    text-align: center;
+    font-size: 16px;
+
+    padding: 24px 0;
+}
