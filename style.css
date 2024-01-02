@@ -52,7 +52,8 @@ body * {
 /*Cabeçalho de perfil*/
 
 #container {
-    width: 360px;
+    width: 100%;
+    max-width: 588px;
     /*margin-top: 56px;
     margin-bottom: 32px;*/
     
